@@ -18,6 +18,7 @@ class Home extends StatelessWidget {
         ),
         body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Image.asset("assets/img/hangman.jpg"),
             ElevatedButton(
               onPressed: () {},
               child: Text("New Game"),
