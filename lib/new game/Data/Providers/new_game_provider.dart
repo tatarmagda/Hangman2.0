@@ -13,10 +13,17 @@ class NewGameProvider extends ChangeNotifier {
     _currentWord = newIndex;
   }
 
+  int? _mistakes;
+  int? get mistakes => _mistakes;
+  set mistakes(int? newMistakes) {
+    _mistakes = newMistakes;
+  }
+
   _init() {
     _randomWords = RandomWords(randomWords: [""]);
     _fetchData();
     _currentWord = 0;
+    _mistakes = 0;
   }
 
   Future _fetchData() async {

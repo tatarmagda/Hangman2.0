@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hangman/Widgets/Tekst_Widget.dart';
 import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class NewGameBody extends StatelessWidget {
     int? _currentWord = Provider.of<NewGameProvider>(context).currentWord;
 
     List _textList = listOfWords[_currentWord!].split("");
+    int _mistakes = Provider.of<NewGameProvider>(context).mistakes!;
 
     return listOfWords.first == ""
         ? CircularProgressIndicator()
@@ -22,7 +24,17 @@ class NewGameBody extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 1 / 3,
-                color: Colors.black,
+                child: Stack(
+                  children: [
+                    SvgPicture.asset("assets/svg/hangman.svg"),
+                    if (_mistakes > 0) SvgPicture.asset("assets/svg/rA.svg"),
+                    if (_mistakes > 1) SvgPicture.asset("assets/svg/lL.svg"),
+                    if (_mistakes > 2) SvgPicture.asset("assets/svg/c.svg"),
+                    if (_mistakes > 3) SvgPicture.asset("assets/svg/rL.svg"),
+                    if (_mistakes > 4) SvgPicture.asset("assets/svg/lA.svg"),
+                    if (_mistakes > 5) SvgPicture.asset("assets/svg/head.svg"),
+                  ],
+                ),
               ),
               Container(
                 child: Center(
