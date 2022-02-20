@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hangman/new%20game/screens/new_game_screens.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class Home extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Hunger Man",
+            "Hang Man",
             style: TextStyle(
                 fontFamily: "Shizuru",
                 fontWeight: FontWeight.bold,
@@ -34,7 +35,14 @@ class Home extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NewGame(),
+                          ),
+                        );
+                      },
                       child: Text("New Game"),
                       style: ElevatedButton.styleFrom(
                         elevation: 20, // Elevation
