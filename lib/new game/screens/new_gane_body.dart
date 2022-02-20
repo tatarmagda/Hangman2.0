@@ -44,8 +44,7 @@ class NewGameBody extends StatelessWidget {
                 .toList(),
           )),
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1 / 8,
-          color: Colors.pink,
+          height: MediaQuery.of(context).size.height * 1 / 6,
         ),
         Expanded(
           child: Container(

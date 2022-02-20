@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 
 class NewGameProvider extends ChangeNotifier {
+  _init() {
+    NewGameProvider() {
+      _init();
+    }
+  }
+
   final List _alfabet = [
     'A',
     'B',
