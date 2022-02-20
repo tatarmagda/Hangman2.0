@@ -9,7 +9,8 @@ class NewGameBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List _alfabet = Provider.of<NewGameProvider>(context).alfabet;
-    String _example = "example";
+    String _example =
+        Provider.of<NewGameProvider>(context).randomWords!.randomWords!.first;
     List _textList = _example.split("");
 
     return Column(

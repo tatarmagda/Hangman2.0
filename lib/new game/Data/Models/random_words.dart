@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 class RandomWords {
-  List<String>? randomWords;
+  List? randomWords;
   RandomWords({
     this.randomWords,
   });
   RandomWords.fromJson(json) {
-    randomWords = json;
+    randomWords = jsonDecode(json);
   }
 }
