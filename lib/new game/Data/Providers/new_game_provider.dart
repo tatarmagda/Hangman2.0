@@ -7,10 +7,16 @@ import 'package:http/http.dart' as http;
 class NewGameProvider extends ChangeNotifier {
   RandomWords? _randomWords;
   RandomWords? get randomWords => _randomWords;
+  int? _currentWord;
+  int? get currentWord => _currentWord;
+  set currentWord(int? newIndex) {
+    _currentWord = newIndex;
+  }
 
   _init() {
-    _randomWords = RandomWords();
+    _randomWords = RandomWords(randomWords: [""]);
     _fetchData();
+    _currentWord = 0;
   }
 
   Future _fetchData() async {
@@ -19,6 +25,7 @@ class NewGameProvider extends ChangeNotifier {
           "https://random-word-api.herokuapp.com/word?number=10&swear=1"));
       print(_randomWords);
       _randomWords = RandomWords.fromJson(response.body);
+      notifyListeners();
     } catch (error) {
       print(error);
     }

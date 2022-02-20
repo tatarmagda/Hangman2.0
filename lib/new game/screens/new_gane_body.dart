@@ -9,67 +9,71 @@ class NewGameBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List _alfabet = Provider.of<NewGameProvider>(context).alfabet;
-    String _example =
-        Provider.of<NewGameProvider>(context).randomWords!.randomWords!.first;
-    List _textList = _example.split("");
+    List listOfWords =
+        Provider.of<NewGameProvider>(context).randomWords!.randomWords!;
+    int? _currentWord = Provider.of<NewGameProvider>(context).currentWord;
 
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1 / 3,
-          color: Colors.black,
-        ),
-        Container(
-          child: Center(
-              child: Wrap(
-            spacing: 10,
-            children: _textList
-                .map(
-                  (e) => Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      MyText(
-                        size: 30,
-                        text: e,
-                      ),
-                      Container(
-                        width: 30,
-                        height: 5,
-                        color: Colors.black,
-                      ),
-                    ],
-                  ),
-                )
-                .toList(),
-          )),
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height * 1 / 6,
-        ),
-        Expanded(
-          child: Container(
-            width: double.infinity,
-            child: Center(
-              child: Wrap(
-                runSpacing: 1.0,
-                spacing: 5,
-                children: _alfabet
-                    .map((e) => Container(
-                          width: 40,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              print(e);
-                            },
-                            child: Text(e),
-                          ),
-                        ))
-                    .toList(),
+    List _textList = listOfWords[_currentWord!].split("");
+
+    return listOfWords.first == ""
+        ? CircularProgressIndicator()
+        : Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 1 / 3,
+                color: Colors.black,
               ),
-            ),
-          ),
-        ),
-      ],
-    );
+              Container(
+                child: Center(
+                    child: Wrap(
+                  spacing: 10,
+                  children: _textList
+                      .map(
+                        (e) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            MyText(
+                              size: 30,
+                              text: "",
+                            ),
+                            Container(
+                              width: 30,
+                              height: 5,
+                              color: Colors.black,
+                            ),
+                          ],
+                        ),
+                      )
+                      .toList(),
+                )),
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 1 / 6,
+              ),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  child: Center(
+                    child: Wrap(
+                      runSpacing: 1.0,
+                      spacing: 5,
+                      children: _alfabet
+                          .map((e) => Container(
+                                width: 40,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    print(e);
+                                  },
+                                  child: Text(e),
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
   }
 }
