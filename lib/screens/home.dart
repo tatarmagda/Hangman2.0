@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hangman/Widgets/Tekst_Widget.dart';
 import 'package:hangman/new%20game/screens/new_game_screens.dart';
 
 class Home extends StatelessWidget {
@@ -10,15 +11,11 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "Hang Man",
-            style: TextStyle(
-                fontFamily: "Shizuru",
-                fontWeight: FontWeight.bold,
-                fontSize: 25),
-          ),
-        ),
+            centerTitle: true,
+            title: MyText(
+              size: 30,
+              text: "Hang Man",
+            )),
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
