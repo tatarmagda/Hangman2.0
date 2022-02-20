@@ -11,12 +11,14 @@ class NewGameProvider extends ChangeNotifier {
   int? get currentWord => _currentWord;
   set currentWord(int? newIndex) {
     _currentWord = newIndex;
+    notifyListeners();
   }
 
   int? _mistakes;
   int? get mistakes => _mistakes;
   set mistakes(int? newMistakes) {
     _mistakes = newMistakes;
+    notifyListeners();
   }
 
   _init() {

@@ -75,6 +75,18 @@ class NewGameBody extends StatelessWidget {
                                 width: 40,
                                 child: ElevatedButton(
                                   onPressed: () {
+                                    Provider.of<NewGameProvider>(context,
+                                                listen: false)
+                                            .mistakes =
+                                        Provider.of<NewGameProvider>(context,
+                                                    listen: false)
+                                                .mistakes! +
+                                            1;
+                                    if (_mistakes > 6) {
+                                      Provider.of<NewGameProvider>(context,
+                                              listen: false)
+                                          .mistakes = 0;
+                                    }
                                     print(e);
                                   },
                                   child: Text(e),
