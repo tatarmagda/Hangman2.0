@@ -14,13 +14,16 @@ class NewGameBody extends StatelessWidget {
         Provider.of<NewGameProvider>(context).randomWords!.randomWords!;
     int? _currentWord = Provider.of<NewGameProvider>(context).currentWord;
 
-    List _textList = listOfWords[_currentWord!].split("");
+    List _textList = listOfWords[_currentWord!].toLowerCase().split("");
     int _mistakes = Provider.of<NewGameProvider>(context).mistakes!;
 
     return listOfWords.first == ""
         ? CircularProgressIndicator()
         : Column(
             children: [
+              Text(
+                Provider.of<NewGameProvider>(context).passedWords.toString(),
+              ),
               Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 1 / 3,
@@ -75,19 +78,17 @@ class NewGameBody extends StatelessWidget {
                                 width: 40,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    Provider.of<NewGameProvider>(context,
-                                                listen: false)
-                                            .mistakes =
-                                        Provider.of<NewGameProvider>(context,
-                                                    listen: false)
-                                                .mistakes! +
-                                            1;
-                                    if (_mistakes > 6) {
-                                      Provider.of<NewGameProvider>(context,
-                                              listen: false)
-                                          .mistakes = 0;
-                                    }
-                                    print(e);
+                                    _checkButton(
+                                        letter: e.toLowerCase(),
+                                        textList: _textList,
+                                        context: context);
+
+                                    //   if (_mistakes > 6) {
+                                    //     Provider.of<NewGameProvider>(context,
+                                    //             listen: false)
+                                    //         .mistakes = 0;
+                                    //   }
+                                    //   print(e);
                                   },
                                   child: Text(e),
                                 ),
@@ -99,5 +100,18 @@ class NewGameBody extends StatelessWidget {
               ),
             ],
           );
+  }
+
+  _checkButton({String? letter, List? textList, context}) {
+    if (textList!.contains(letter)) {
+      Provider.of<NewGameProvider>(context, listen: false)
+          .passedWords!
+          .add(letter!);
+      print("yay! $letter");
+    } else {
+      Provider.of<NewGameProvider>(context, listen: false).mistakes =
+          Provider.of<NewGameProvider>(context, listen: false).mistakes! + 1;
+      print("a na drzewach zamiast lisci beda wisiec komunisci");
+    }
   }
 }
