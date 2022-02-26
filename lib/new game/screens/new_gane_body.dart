@@ -169,7 +169,6 @@ class NewGameBody extends StatelessWidget {
         _myLocalBool = false;
       } else {
         _myLocalBool = true;
-
         AwesomeDialog(
           context: context,
           dialogType: DialogType.SUCCES,
@@ -206,6 +205,7 @@ class NewGameBody extends StatelessWidget {
           title: 'GAME OVER',
           desc: 'Start New Game',
           dismissOnBackKeyPress: false,
+          btnCancelText: "Menu",
           btnCancelOnPress: () {
             Navigator.pop(context);
           },
