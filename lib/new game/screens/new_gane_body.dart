@@ -20,8 +20,8 @@ class NewGameBody extends StatelessWidget {
 
     List _passedWords = Provider.of<NewGameProvider>(context).passedWords!;
 
-    return listOfWords.first == ""
-        ? CircularProgressIndicator()
+    return Provider.of<NewGameProvider>(context).loading!
+        ? Center(child: CircularProgressIndicator())
         : Column(
             children: [
               Text(
@@ -124,8 +124,13 @@ class NewGameBody extends StatelessWidget {
           title: 'GAME OVER',
           desc: 'Start New Game',
           dismissOnBackKeyPress: false,
-          btnCancelOnPress: () {},
-          btnOkOnPress: () {},
+          btnCancelOnPress: () {
+            Navigator.pop(context);
+          },
+          btnOkOnPress: () {
+            Provider.of<NewGameProvider>(context, listen: false).loading = true;
+            Provider.of<NewGameProvider>(context, listen: false).init();
+          },
         ).show();
       }
     }
