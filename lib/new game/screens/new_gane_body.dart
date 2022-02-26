@@ -6,6 +6,8 @@ import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
+import 'new_game_screens.dart';
+
 class NewGameBody extends StatelessWidget {
   const NewGameBody({Key? key}) : super(key: key);
 
@@ -163,9 +165,31 @@ class NewGameBody extends StatelessWidget {
             },
           ).show();
         }
+      } else if (_wordCheck.contains(false)) {
+        _myLocalBool = false;
       } else {
-        // show endgame dialog (guzik close i new game)!!!!! homework
+        _myLocalBool = true;
 
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.SUCCES,
+          borderSide: BorderSide(color: Colors.green, width: 2),
+          width: 280,
+          buttonsBorderRadius: BorderRadius.all(Radius.circular(2)),
+          headerAnimationLoop: false,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'You win!',
+          desc: 'Whatcha gonna do?',
+          btnCancelText: "Menu",
+          btnCancelOnPress: () {
+            Navigator.pop(context);
+          },
+          btnOkText: "New Game",
+          btnOkOnPress: () {
+            Provider.of<NewGameProvider>(context, listen: false).loading = true;
+            Provider.of<NewGameProvider>(context, listen: false).init();
+          },
+        ).show();
       }
     } else {
       Provider.of<NewGameProvider>(context, listen: false).mistakes =

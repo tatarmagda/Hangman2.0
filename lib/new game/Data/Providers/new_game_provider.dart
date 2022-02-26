@@ -71,7 +71,7 @@ class NewGameProvider extends ChangeNotifier {
   Future _fetchData() async {
     try {
       http.Response response = await http.get(Uri.parse(
-          "https://random-word-api.herokuapp.com/word?number=10&swear=1"));
+          "https://random-word-api.herokuapp.com/word?number=2&swear=1"));
       print(_randomWords);
       _randomWords = RandomWords.fromJson(response.body);
       _loading = false;
