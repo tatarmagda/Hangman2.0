@@ -24,10 +24,16 @@ class NewGameProvider extends ChangeNotifier {
 
   List<String>? _passedWords;
   List<String>? get passedWords => _passedWords;
-  set passedWords(List<String>? newList) {
-    _passedWords = newList;
+
+  addPassLetter(String letter) {
+    _passedWords!.add(letter);
     notifyListeners();
   }
+
+  // set passedWords(List<String>? newList) {
+  //   _passedWords = newList;
+  //   notifyListeners();
+  // }
 
   _init() {
     _randomWords = RandomWords(randomWords: [""]);

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hangman/Widgets/Tekst_Widget.dart';
 import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class NewGameBody extends StatelessWidget {
   const NewGameBody({Key? key}) : super(key: key);
@@ -17,12 +18,14 @@ class NewGameBody extends StatelessWidget {
     List _textList = listOfWords[_currentWord!].toLowerCase().split("");
     int _mistakes = Provider.of<NewGameProvider>(context).mistakes!;
 
+    List _passedWords = Provider.of<NewGameProvider>(context).passedWords!;
+
     return listOfWords.first == ""
         ? CircularProgressIndicator()
         : Column(
             children: [
               Text(
-                Provider.of<NewGameProvider>(context).passedWords.toString(),
+                _passedWords.toString(),
               ),
               Container(
                 width: double.infinity,
@@ -51,7 +54,9 @@ class NewGameBody extends StatelessWidget {
                           children: [
                             MyText(
                               size: 30,
-                              text: "",
+                              text: _passedWords.contains(e.toLowerCase())
+                                  ? e
+                                  : "",
                             ),
                             Container(
                               width: 30,
@@ -77,19 +82,16 @@ class NewGameBody extends StatelessWidget {
                           .map((e) => Container(
                                 width: 40,
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    _checkButton(
-                                        letter: e.toLowerCase(),
-                                        textList: _textList,
-                                        context: context);
-
-                                    //   if (_mistakes > 6) {
-                                    //     Provider.of<NewGameProvider>(context,
-                                    //             listen: false)
-                                    //         .mistakes = 0;
-                                    //   }
-                                    //   print(e);
-                                  },
+                                  // step 1
+                                  onPressed:
+                                      _passedWords.contains(e.toLowerCase())
+                                          ? null
+                                          : () {
+                                              _checkButton(
+                                                  letter: e.toLowerCase(),
+                                                  textList: _textList,
+                                                  context: context);
+                                            },
                                   child: Text(e),
                                 ),
                               ))
@@ -105,13 +107,26 @@ class NewGameBody extends StatelessWidget {
   _checkButton({String? letter, List? textList, context}) {
     if (textList!.contains(letter)) {
       Provider.of<NewGameProvider>(context, listen: false)
-          .passedWords!
-          .add(letter!);
+          .addPassLetter(letter!);
       print("yay! $letter");
     } else {
       Provider.of<NewGameProvider>(context, listen: false).mistakes =
           Provider.of<NewGameProvider>(context, listen: false).mistakes! + 1;
-      print("a na drzewach zamiast lisci beda wisiec komunisci");
+      if (Provider.of<NewGameProvider>(context, listen: false).mistakes! >= 6) {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.ERROR,
+          borderSide: const BorderSide(color: Colors.red, width: 2),
+          // width: 280,
+          buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
+          headerAnimationLoop: true,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'GAME OVER',
+          desc: 'Start New Game You Idiot',
+          btnCancelOnPress: () {},
+          btnOkOnPress: () {},
+        ).show();
+      }
     }
   }
 }
