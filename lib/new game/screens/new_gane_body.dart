@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hangman/Widgets/Tekst_Widget.dart';
 import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
@@ -108,7 +109,28 @@ class NewGameBody extends StatelessWidget {
     if (textList!.contains(letter)) {
       Provider.of<NewGameProvider>(context, listen: false)
           .addPassLetter(letter!);
-      print("yay! $letter");
+// is next words to spods the answer
+      bool _myLocalBool = false;
+      List<bool> _wordCheck = [];
+      textList.forEach((element) {
+        Provider.of<NewGameProvider>(context, listen: false)
+            .passedWords!
+            .contains(element);
+        if (Provider.of<NewGameProvider>(context, listen: false)
+            .passedWords!
+            .contains(element)) {
+          _wordCheck.add(false);
+        } else {
+          _wordCheck.add(true);
+        }
+      });
+      if (_wordCheck.contains(false)) {
+        _myLocalBool = false;
+      } else {
+        _myLocalBool = true;
+      }
+
+      print(_myLocalBool);
     } else {
       Provider.of<NewGameProvider>(context, listen: false).mistakes =
           Provider.of<NewGameProvider>(context, listen: false).mistakes! + 1;
