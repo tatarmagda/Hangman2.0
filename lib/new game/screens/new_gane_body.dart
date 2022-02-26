@@ -163,6 +163,9 @@ class NewGameBody extends StatelessWidget {
             },
           ).show();
         }
+      } else {
+        // show endgame dialog (guzik close i new game)!!!!! homework
+
       }
     } else {
       Provider.of<NewGameProvider>(context, listen: false).mistakes =
