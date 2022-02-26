@@ -129,30 +129,40 @@ class NewGameBody extends StatelessWidget {
       } else {
         _myLocalBool = true;
       }
-      if (_myLocalBool) {
-        AwesomeDialog(
-          context: context,
-          dialogType: DialogType.SUCCES,
-          borderSide: const BorderSide(color: Colors.green, width: 2),
-          // width: 280,
-          buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
-          headerAnimationLoop: true,
-          animType: AnimType.BOTTOMSLIDE,
-          title: 'New Word',
-          desc: 'to be continued',
-          dismissOnBackKeyPress: false,
-          btnCancelText: "Restart",
-          btnCancelOnPress: () {
-            Provider.of<NewGameProvider>(context, listen: false).loading = true;
-            Provider.of<NewGameProvider>(context, listen: false).init();
-          },
-          btnOkOnPress: () {
-            Provider.of<NewGameProvider>(context, listen: false).currentWord =
-                Provider.of<NewGameProvider>(context, listen: false)
-                        .currentWord! +
-                    1;
-          },
-        ).show();
+      if (Provider.of<NewGameProvider>(context, listen: false).currentWord! <
+          Provider.of<NewGameProvider>(context, listen: false)
+                  .randomWords!
+                  .randomWords!
+                  .length -
+              1) {
+        if (_myLocalBool) {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.SUCCES,
+            borderSide: const BorderSide(color: Colors.green, width: 2),
+            // width: 280,
+            buttonsBorderRadius: const BorderRadius.all(Radius.circular(2)),
+            headerAnimationLoop: true,
+            animType: AnimType.BOTTOMSLIDE,
+            title: 'New Word',
+            desc: 'to be continued',
+            dismissOnBackKeyPress: false,
+            btnCancelText: "Restart",
+            btnCancelOnPress: () {
+              Provider.of<NewGameProvider>(context, listen: false).loading =
+                  true;
+              Provider.of<NewGameProvider>(context, listen: false).init();
+            },
+            btnOkOnPress: () {
+              Provider.of<NewGameProvider>(context, listen: false).currentWord =
+                  Provider.of<NewGameProvider>(context, listen: false)
+                          .currentWord! +
+                      1;
+              Provider.of<NewGameProvider>(context, listen: false).passedWords =
+                  [];
+            },
+          ).show();
+        }
       }
     } else {
       Provider.of<NewGameProvider>(context, listen: false).mistakes =
