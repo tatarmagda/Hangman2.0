@@ -122,7 +122,8 @@ class NewGameBody extends StatelessWidget {
           headerAnimationLoop: true,
           animType: AnimType.BOTTOMSLIDE,
           title: 'GAME OVER',
-          desc: 'Start New Game You Idiot',
+          desc: 'Start New Game',
+          dismissOnBackKeyPress: false,
           btnCancelOnPress: () {},
           btnOkOnPress: () {},
         ).show();
