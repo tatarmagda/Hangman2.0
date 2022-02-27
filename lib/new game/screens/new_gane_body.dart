@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hangman/Widgets/Tekst_Widget.dart';
 import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
+import 'package:hangman/new%20game/Data/Providers/timer.dart';
 import 'package:provider/provider.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
@@ -154,7 +155,11 @@ class NewGameBody extends StatelessWidget {
               Provider.of<NewGameProvider>(context, listen: false).loading =
                   true;
               Provider.of<NewGameProvider>(context, listen: false).init();
+              Provider.of<TimerProvider>(context, listen: false)
+                  .timer!
+                  .cancel();
             },
+
             btnOkOnPress: () {
               Provider.of<NewGameProvider>(context, listen: false).currentWord =
                   Provider.of<NewGameProvider>(context, listen: false)
@@ -162,6 +167,9 @@ class NewGameBody extends StatelessWidget {
                       1;
               Provider.of<NewGameProvider>(context, listen: false).passedWords =
                   [];
+              Provider.of<TimerProvider>(context, listen: false)
+                  .timer!
+                  .cancel();
             },
           ).show();
         }
@@ -182,11 +190,13 @@ class NewGameBody extends StatelessWidget {
           btnCancelText: "Menu",
           btnCancelOnPress: () {
             Navigator.pop(context);
+            Provider.of<TimerProvider>(context, listen: false).timer!.cancel();
           },
           btnOkText: "New Game",
           btnOkOnPress: () {
             Provider.of<NewGameProvider>(context, listen: false).loading = true;
             Provider.of<NewGameProvider>(context, listen: false).init();
+            Provider.of<TimerProvider>(context, listen: false).timer!.cancel();
           },
         ).show();
       }
@@ -208,10 +218,12 @@ class NewGameBody extends StatelessWidget {
           btnCancelText: "Menu",
           btnCancelOnPress: () {
             Navigator.pop(context);
+            Provider.of<TimerProvider>(context, listen: false).timer!.cancel();
           },
           btnOkOnPress: () {
             Provider.of<NewGameProvider>(context, listen: false).loading = true;
             Provider.of<NewGameProvider>(context, listen: false).init();
+            Provider.of<TimerProvider>(context, listen: false).timer!.cancel();
           },
         ).show();
       }

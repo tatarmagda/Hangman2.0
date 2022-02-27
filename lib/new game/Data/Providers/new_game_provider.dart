@@ -72,7 +72,7 @@ class NewGameProvider extends ChangeNotifier {
     try {
       http.Response response = await http.get(Uri.parse(
           "https://random-word-api.herokuapp.com/word?number=2&swear=1"));
-      print(_randomWords);
+
       _randomWords = RandomWords.fromJson(response.body);
       _loading = false;
       notifyListeners();

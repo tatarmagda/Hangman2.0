@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:hangman/Widgets/Tekst_Widget.dart';
 import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
+import 'package:hangman/new%20game/Data/Providers/timer.dart';
 import 'package:hangman/new%20game/screens/new_gane_body.dart';
 import 'package:provider/provider.dart';
 
-class NewGame extends StatelessWidget {
+class NewGame extends StatefulWidget {
   const NewGame({Key? key}) : super(key: key);
+
+  @override
+  State<NewGame> createState() => _NewGameState();
+}
+
+class _NewGameState extends State<NewGame> {
+  @override
+  void initState() {
+    Provider.of<TimerProvider>(context).init();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     int? _currentWord = Provider.of<NewGameProvider>(context).currentWord;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -19,9 +33,9 @@ class NewGame extends StatelessWidget {
           },
         ),
         centerTitle: true,
-        title: const MyText(
+        title: MyText(
           size: 30,
-          text: "Timer",
+          text: Provider.of<TimerProvider>(context).timer!.tick.toString(),
         ),
         actions: [
           Padding(
