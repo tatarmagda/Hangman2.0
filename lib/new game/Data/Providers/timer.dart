@@ -5,22 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class TimerProvider extends ChangeNotifier {
-  init() {
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        print(timer.tick);
-        notifyListeners();
-      },
-    );
-    notifyListeners();
-  }
+  int _time = 0;
+  int get time => _time;
 
-  Timer? _timer;
-
-  Timer? get timer => _timer;
-  set timer(Timer? newTime) {
-    _timer = newTime;
+  set time(int newTime) {
+    _time = newTime;
     notifyListeners();
   }
 }
