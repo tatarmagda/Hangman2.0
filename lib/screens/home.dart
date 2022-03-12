@@ -6,6 +6,8 @@ import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
 import 'package:hangman/new%20game/screens/new_game_screens.dart';
 import 'package:provider/provider.dart';
 
+import '../Login/auth_state.dart';
+
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -13,11 +15,24 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            centerTitle: true,
-            title: const MyText(
-              size: 30,
-              text: "Hang Man",
-            )),
+          centerTitle: true,
+          title: const MyText(
+            size: 30,
+            text: "Hang Man",
+          ),
+          actions: <Widget>[
+            FlatButton(
+              textColor: Colors.white,
+              onPressed: () {
+                Provider.of<AuthState>(context, listen: false)
+                    .signOutWithEmail();
+              },
+              child: Text("Log out"),
+              shape: CircleBorder(
+                  side: BorderSide(color: Color.fromARGB(0, 31, 32, 94))),
+            ),
+          ],
+        ),
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
