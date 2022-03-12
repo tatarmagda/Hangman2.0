@@ -139,6 +139,8 @@ class NewGameBody extends StatelessWidget {
                   .length -
               1) {
         if (_myLocalBool) {
+          Provider.of<NewGameProvider>(context, listen: false).endTimer();
+
           AwesomeDialog(
             context: context,
             dialogType: DialogType.SUCCES,
@@ -164,6 +166,7 @@ class NewGameBody extends StatelessWidget {
                       1;
               Provider.of<NewGameProvider>(context, listen: false).passedWords =
                   [];
+              Provider.of<NewGameProvider>(context, listen: false).startTimer();
             },
           ).show();
         }
@@ -171,6 +174,8 @@ class NewGameBody extends StatelessWidget {
         _myLocalBool = false;
       } else {
         _myLocalBool = true;
+        Provider.of<NewGameProvider>(context, listen: false).endTimer();
+
         AwesomeDialog(
           context: context,
           dialogType: DialogType.SUCCES,
@@ -198,6 +203,7 @@ class NewGameBody extends StatelessWidget {
       Provider.of<NewGameProvider>(context, listen: false).mistakes =
           Provider.of<NewGameProvider>(context, listen: false).mistakes! + 1;
       if (Provider.of<NewGameProvider>(context, listen: false).mistakes! >= 6) {
+        Provider.of<NewGameProvider>(context, listen: false).endTimer();
         AwesomeDialog(
           context: context,
           dialogType: DialogType.ERROR,

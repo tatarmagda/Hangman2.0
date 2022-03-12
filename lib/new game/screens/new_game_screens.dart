@@ -7,31 +7,8 @@ import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
 import 'package:hangman/new%20game/screens/new_gane_body.dart';
 import 'package:provider/provider.dart';
 
-class NewGame extends StatefulWidget {
+class NewGame extends StatelessWidget {
   const NewGame({Key? key}) : super(key: key);
-
-  @override
-  State<NewGame> createState() => _NewGameState();
-}
-
-class _NewGameState extends State<NewGame> {
-  Timer? _timer;
-
-  @override
-  void initState() {
-    // zapis w init statecie poza buildem
-    // context.read<TimerProvider>().init();
-    // zapis w buildzie : Provider.of<TimerProvider>(context).init();
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _timer!.cancel();
-    // context.read<TimerProvider>().timer!.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +18,18 @@ class _NewGameState extends State<NewGame> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_sharp),
-          onPressed: () {
-            if (Provider.of<NewGameProvider>(context, listen: false).timer !=
-                null)
-              Provider.of<NewGameProvider>(context, listen: false).endTimer();
-            Navigator.pop(context);
-          },
+          onPressed:
+              Provider.of<NewGameProvider>(context, listen: true).timer == null
+                  ? null
+                  : () {
+                      if (Provider.of<NewGameProvider>(context, listen: false)
+                              .timer !=
+                          null) {
+                        Provider.of<NewGameProvider>(context, listen: false)
+                            .endTimer();
+                      }
+                      Navigator.pop(context);
+                    },
         ),
         centerTitle: true,
         title: MyText(
@@ -63,7 +46,18 @@ class _NewGameState extends State<NewGame> {
           ),
         ],
       ),
-      body: NewGameBody(),
+      body: WillPopScope(
+          onWillPop: () async {
+            if (Provider.of<NewGameProvider>(context, listen: false).timer !=
+                null) {
+              Provider.of<NewGameProvider>(context, listen: false).endTimer();
+
+              return true;
+            } else {
+              return false;
+            }
+          },
+          child: NewGameBody()),
     );
   }
 }
