@@ -1,18 +1,18 @@
-class ListOfWinners {
-  ListOfWinners({required this.login, required this.score, required this.time});
+class LiderBoards {
+  LiderBoards({required this.login, required this.score, required this.time});
 
-  ListOfWinners.fromJson(Map<int, Object?> json)
+  LiderBoards.fromJson(Map<String, dynamic> json)
       : this(
-          login: json['model']! as String,
+          login: json['login']! as String,
           score: json["score"]! as int,
-          time: json['brand']! as int,
+          time: json['time']! as int,
         );
 
   String? login;
   int? score;
   int? time;
 
-  Map<String, Object?> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'login': login,
       'score': score,

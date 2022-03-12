@@ -1,9 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hangman/Widgets/Tekst_Widget.dart';
 import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
 import 'package:hangman/new%20game/screens/new_game_screens.dart';
+import 'package:hangman/screens/leaderboards.dart';
 import 'package:provider/provider.dart';
 
 import '../Login/auth_state.dart';
@@ -74,7 +74,14 @@ class Home extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 100.0),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LeaderBords(),
+                            ),
+                          );
+                        },
                         child: Text("Wall of fame"),
                         style: ElevatedButton.styleFrom(
                           elevation: 20, // Elevation
