@@ -47,6 +47,9 @@ class _NewGameState extends State<NewGame> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_sharp),
           onPressed: () {
+            if (Provider.of<NewGameProvider>(context, listen: false).timer !=
+                null)
+              Provider.of<NewGameProvider>(context, listen: false).endTimer();
             Navigator.pop(context);
           },
         ),
