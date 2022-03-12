@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:hangman/new%20game/Data/Providers/timer.dart';
+
 import 'package:hangman/screens/home.dart';
 import 'package:provider/provider.dart';
 
@@ -19,9 +19,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => NewGameProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => TimerProvider(),
         ),
       ],
       child: MaterialApp(

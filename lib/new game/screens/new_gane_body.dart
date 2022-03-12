@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hangman/Widgets/Tekst_Widget.dart';
 import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
-import 'package:hangman/new%20game/Data/Providers/timer.dart';
+
 import 'package:provider/provider.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 

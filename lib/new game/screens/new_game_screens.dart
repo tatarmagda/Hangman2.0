@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hangman/Widgets/Tekst_Widget.dart';
 import 'package:hangman/new%20game/Data/Providers/new_game_provider.dart';
-import 'package:hangman/new%20game/Data/Providers/timer.dart';
+
 import 'package:hangman/new%20game/screens/new_gane_body.dart';
 import 'package:provider/provider.dart';
 
@@ -19,11 +19,6 @@ class _NewGameState extends State<NewGame> {
 
   @override
   void initState() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      context.read<TimerProvider>().time = timer.tick;
-      print(context.read<TimerProvider>().time);
-    });
-
     // zapis w init statecie poza buildem
     // context.read<TimerProvider>().init();
     // zapis w buildzie : Provider.of<TimerProvider>(context).init();
@@ -56,7 +51,7 @@ class _NewGameState extends State<NewGame> {
         centerTitle: true,
         title: MyText(
           size: 30,
-          text: Provider.of<TimerProvider>(context).time.toString() + "s",
+          text: Provider.of<NewGameProvider>(context).time.toString() + "s",
         ),
         actions: [
           Padding(
